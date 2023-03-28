@@ -1,8 +1,8 @@
-package treboder.optaplanner.examples.timetable.timetable.persistence;
+package treboder.optaplanner.examples.timetable.persistence;
 
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import treboder.optaplanner.examples.timetable.timetable.domain.Room;
+import treboder.optaplanner.examples.timetable.domain.Room;
 
 import java.util.List;
 

@@ -1,16 +1,16 @@
-package treboder.optaplanner.examples.timetable.timetable.data;
+package treboder.optaplanner.examples.timetable.data;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import treboder.optaplanner.examples.timetable.timetable.domain.Lesson;
-import treboder.optaplanner.examples.timetable.timetable.domain.Room;
-import treboder.optaplanner.examples.timetable.timetable.domain.Timeslot;
-import treboder.optaplanner.examples.timetable.timetable.persistence.LessonRepository;
-import treboder.optaplanner.examples.timetable.timetable.persistence.RoomRepository;
-import treboder.optaplanner.examples.timetable.timetable.persistence.TimeslotRepository;
+import treboder.optaplanner.examples.timetable.domain.Lesson;
+import treboder.optaplanner.examples.timetable.domain.Room;
+import treboder.optaplanner.examples.timetable.domain.Timeslot;
+import treboder.optaplanner.examples.timetable.persistence.LessonRepository;
+import treboder.optaplanner.examples.timetable.persistence.RoomRepository;
+import treboder.optaplanner.examples.timetable.persistence.TimeslotRepository;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;

@@ -1,10 +1,10 @@
-package treboder.optaplanner.examples.timetable.timetable.persistence;
+package treboder.optaplanner.examples.timetable.persistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import treboder.optaplanner.examples.timetable.timetable.domain.Lesson;
-import treboder.optaplanner.examples.timetable.timetable.domain.TimeTable;
+import treboder.optaplanner.examples.timetable.domain.Lesson;
+import treboder.optaplanner.examples.timetable.domain.TimeTable;
 
 @Service
 @Transactional
