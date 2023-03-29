@@ -1,4 +1,4 @@
-package treboder.optaplanner.examples.nqueens;
+package treboder.optaplanner.examples.timetable.nqueens;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

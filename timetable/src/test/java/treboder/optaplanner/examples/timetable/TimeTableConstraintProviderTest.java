@@ -1,4 +1,4 @@
-package treboder.optaplanner.examples;
+package treboder.optaplanner.examples.timetable;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;

@@ -1,10 +1,10 @@
-package treboder.optaplanner.examples;
+package treboder.optaplanner.examples.timetable.nqueens;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TimetableApplicationTests {
+class NqueensApplicationTests {
 
 	@Test
 	void contextLoads() {

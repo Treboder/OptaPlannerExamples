@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import treboder.optaplanner.examples.timetable.persistence.TimeTableRepository;
 import treboder.optaplanner.examples.timetable.domain.TimeTable;
 
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @RestController
