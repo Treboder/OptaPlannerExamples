@@ -42,9 +42,13 @@ public class TimeTableController {
                 timeTableRepository::save);
     }
 
-    @PostMapping("/solve") // waits for the solver to finish, which can still cause an HTTP timeout.
-    public TimeTable solve() {
+    @PostMapping("/solveAndWait") // waits for the solver to finish, which can still cause an HTTP timeout.
+    public TimeTable solveAndWait() {
         TimeTable problem = timeTableRepository.findById(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
+        return solve(problem);
+    }
+
+    public TimeTable solve(TimeTable problem) {
         SolverJob<TimeTable, Long> solverJob = solverManager.solve(TimeTableRepository.SINGLETON_TIME_TABLE_ID, problem);
         TimeTable solution;
         try {
