@@ -18,8 +18,10 @@ public class TimeTableController {
 
     @Autowired
     private TimeTableRepository timeTableRepository;
+
     @Autowired
     private SolverManager<TimeTable, Long> solverManager;
+
     @Autowired
     private ScoreManager<TimeTable, HardSoftScore> scoreManager;
 

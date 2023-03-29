@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @PlanningEntity(difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)
-//@PlanningEntity
 public class Queen {
 
     @PlanningId
@@ -18,9 +17,11 @@ public class Queen {
     @GeneratedValue
     private Long id;
 
+    // @PlanningVariable ToDo why not?
     private Column column;
 
-    // Planning variables: changes during planning, between score calculations.
+    //@PlanningVariable(strengthWeightFactoryClass = RowStrengthWeightFactory.class)
+    @PlanningVariable // changes during planning, between score calculations.
     private Row row;
 
     public Queen() {
@@ -44,8 +45,6 @@ public class Queen {
         this.column = column;
     }
 
-   //@PlanningVariable(strengthWeightFactoryClass = RowStrengthWeightFactory.class)
-    @PlanningVariable
     public Row getRow() {
         return row;
     }

@@ -34,7 +34,6 @@ public class Row {
         this.index = index;
     }
 
-
     public String getLabel() {
         return "Row " + index;
     }

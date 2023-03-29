@@ -1,4 +1,4 @@
-package treboder.optaplanner.examples.nqueens.controller;
+package treboder.optaplanner.examples.nqueens.app;
 
 
 import org.optaplanner.core.api.solver.Solver;

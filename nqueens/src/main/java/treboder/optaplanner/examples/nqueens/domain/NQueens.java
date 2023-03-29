@@ -20,20 +20,55 @@ public class NQueens {
     @GeneratedValue
     private Long id;
 
-    private int n;
-
+    //@ValueRangeProvider ToDo why not?
+    @ProblemFactCollectionProperty
     private List<Column> columnList;
+
+    @ValueRangeProvider
+    @ProblemFactCollectionProperty
     private List<Row> rowList;
 
+    @PlanningEntityCollectionProperty
     private List<Queen> queenList;
 
+    @PlanningScore
     private SimpleScore score;
+
+    private int n;
 
     public NQueens() {
     }
 
     public NQueens(long id) {
         this.id = id;
+    }
+
+    public List<Column> getColumnList() {
+        return columnList;
+    }
+
+    public void setColumnList(List<Column> columnList) { this.columnList = columnList; }
+
+    public List<Row> getRowList() {
+        return rowList;
+    }
+
+    public void setRowList(List<Row> rowList) {
+        this.rowList = rowList;
+    }
+
+    public List<Queen> getQueenList() {
+        return queenList;
+    }
+
+    public void setQueenList(List<Queen> queenList) { this.queenList = queenList; }
+
+    public SimpleScore getScore() {
+        return score;
+    }
+
+    public void setScore(SimpleScore score) {
+        this.score = score;
     }
 
     public int getN() {
@@ -44,45 +79,5 @@ public class NQueens {
         this.n = n;
     }
 
-    @ProblemFactCollectionProperty
-    public List<Column> getColumnList() {
-        return columnList;
-    }
-
-    public void setColumnList(List<Column> columnList) {
-        this.columnList = columnList;
-    }
-
-    @ValueRangeProvider
-    @ProblemFactCollectionProperty
-    public List<Row> getRowList() {
-        return rowList;
-    }
-
-    public void setRowList(List<Row> rowList) {
-        this.rowList = rowList;
-    }
-
-    @PlanningEntityCollectionProperty
-    public List<Queen> getQueenList() {
-        return queenList;
-    }
-
-    public void setQueenList(List<Queen> queenList) {
-        this.queenList = queenList;
-    }
-
-    @PlanningScore
-    public SimpleScore getScore() {
-        return score;
-    }
-
-    public void setScore(SimpleScore score) {
-        this.score = score;
-    }
-
-    // ************************************************************************
-    // Complex methods
-    // ************************************************************************
 
 }
