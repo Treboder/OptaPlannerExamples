@@ -9,24 +9,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@PlanningEntity
 @Entity
+@PlanningEntity // Optaplanner changes the @PlanningEntity with its @PlanningVariable during solving
 public class Lesson {
 
     @PlanningId
     @Id @GeneratedValue
     private Long id;
 
+    // subject, teacher and studentGroup define the lesson
     private String subject;
     private String teacher;
     private String studentGroup;
 
     @PlanningVariable
-    @ManyToOne
+    @ManyToOne // a timeslot can be used by all/many lessons, but one single lesson is scheduled to one single timeslot
     private Timeslot timeslot;
 
     @PlanningVariable
-    @ManyToOne
+    @ManyToOne // a room can be used by all/many lessons, but one single lesson occupies one single room
     private Room room;
 
     // No-arg constructor required for Hibernate and OptaPlanner

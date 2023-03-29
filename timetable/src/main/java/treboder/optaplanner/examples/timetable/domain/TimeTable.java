@@ -10,21 +10,21 @@ import org.optaplanner.core.api.solver.SolverStatus;
 
 import java.util.List;
 
-@PlanningSolution
+@PlanningSolution // OptaPlanner knows that this class contains all of the input and output data.
 public class TimeTable {
 
-    @ValueRangeProvider
+    @ValueRangeProvider // connects with the @PlanningVariable and enables TimeTableConstraintProvider to calc the score
     @ProblemFactCollectionProperty
     private List<Timeslot> timeslotList;
 
-    @ValueRangeProvider
+    @ValueRangeProvider // connects with the @PlanningVariable and enables TimeTableConstraintProvider to calc the score
     @ProblemFactCollectionProperty
     private List<Room> roomList;
 
-    @PlanningEntityCollectionProperty
+    @PlanningEntityCollectionProperty // connects with the @PlanningEntity and enables TimeTableConstraintProvider to calc the score
     private List<Lesson> lessonList;
 
-    @PlanningScore
+    @PlanningScore // enables TimeTableConstraintProvider to calc the score
     private HardSoftScore score;
 
     // Ignored by OptaPlanner, used by the UI to display solve or stop solving button

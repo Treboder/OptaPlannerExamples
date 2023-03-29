@@ -9,6 +9,8 @@ import treboder.optaplanner.examples.timetable.domain.Lesson;
 
 import java.time.Duration;
 
+// The ConstraintProvider scales an order of magnitude better than the EasyScoreCalculator: O(n) instead of O(n²).
+
 public class TimeTableConstraintProvider implements ConstraintProvider {
 
     @Override

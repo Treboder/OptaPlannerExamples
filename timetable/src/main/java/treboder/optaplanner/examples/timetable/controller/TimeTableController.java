@@ -2,15 +2,16 @@ package treboder.optaplanner.examples.timetable.controller;
 
 import org.optaplanner.core.api.score.ScoreManager;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import org.optaplanner.core.api.solver.SolverJob;
 import org.optaplanner.core.api.solver.SolverManager;
 import org.optaplanner.core.api.solver.SolverStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import treboder.optaplanner.examples.timetable.persistence.TimeTableRepository;
 import treboder.optaplanner.examples.timetable.domain.TimeTable;
+
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/timeTable")
@@ -35,11 +36,25 @@ public class TimeTableController {
         return solution;
     }
 
-    @PostMapping("/solve")
-    public void solve() {
+    @PostMapping("/solveAndListen") // avoids HTTP timeouts much more elegantly.
+    public void solveAndListen() {
         solverManager.solveAndListen(TimeTableRepository.SINGLETON_TIME_TABLE_ID,
                 timeTableRepository::findById,
                 timeTableRepository::save);
+    }
+
+    @PostMapping("/solve") // waits for the solver to finish, which can still cause an HTTP timeout.
+    public TimeTable solve() {
+        TimeTable problem = timeTableRepository.findById(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
+        SolverJob<TimeTable, Long> solverJob = solverManager.solve(TimeTableRepository.SINGLETON_TIME_TABLE_ID, problem);
+        TimeTable solution;
+        try {
+            // Wait until the solving ends
+            solution = solverJob.getFinalBestSolution();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new IllegalStateException("Solving failed.", e);
+        }
+        return solution;
     }
 
     public SolverStatus getSolverStatus() {
