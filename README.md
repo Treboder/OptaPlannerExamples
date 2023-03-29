@@ -1,6 +1,6 @@
 # Getting Started
 
-(Optaplanner Spring Boot quick start - timetable) [https://www.optaplanner.org/docs/optaplanner/latest/quickstart/spring-boot/spring-boot-quickstart.html]
+[Optaplanner Spring Boot quick start - timetable](https://www.optaplanner.org/docs/optaplanner/latest/quickstart/spring-boot/spring-boot-quickstart.html)
 
 ### Reference Documentation
 For further reference, please consider the following sections:
