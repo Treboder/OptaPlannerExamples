@@ -40,6 +40,11 @@ public class Lesson {
         this.studentGroup = studentGroup;
     }
 
+    public Lesson(long id, String subject, String teacher, String studentGroup) {
+        this(subject, teacher, studentGroup);
+        this.id = id;
+    }
+
     public Lesson(long id, String subject, String teacher, String studentGroup, Timeslot timeslot, Room room) {
         this(subject, teacher, studentGroup);
         this.id = id;

@@ -27,7 +27,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
         };
     }
 
-    Constraint roomConflict(ConstraintFactory constraintFactory) {
+    public Constraint roomConflict(ConstraintFactory constraintFactory) {
         // A room can accommodate at most one lesson at the same time.
         return constraintFactory
                 // Select each pair of 2 different lessons ...

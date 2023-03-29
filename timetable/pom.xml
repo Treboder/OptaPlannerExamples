@@ -47,6 +47,12 @@
 			<artifactId>optaplanner-spring-boot-starter</artifactId>
 			<version>${version.org.optaplanner}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.optaplanner</groupId>
+			<artifactId>optaplanner-test</artifactId>
+			<version>${version.org.optaplanner}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
