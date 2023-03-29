@@ -1,14 +1,16 @@
-package treboder.optaplanner.examples.timetable.nqueens.domain;
+package treboder.optaplanner.examples.nqueens.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
+import treboder.optaplanner.examples.nqueens.solver.QueenDifficultyWeightFactory;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-//@PlanningEntity(difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)
-@PlanningEntity
+@PlanningEntity(difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)
+//@PlanningEntity
 public class Queen {
 
     @PlanningId

@@ -1,14 +1,13 @@
-package treboder.optaplanner.examples.timetable.nqueens.persistence;
+package treboder.optaplanner.examples.nqueens.persistence;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import treboder.optaplanner.examples.timetable.nqueens.domain.Column;
-import treboder.optaplanner.examples.timetable.nqueens.domain.NQueens;
-import treboder.optaplanner.examples.timetable.nqueens.domain.Queen;
-import treboder.optaplanner.examples.timetable.nqueens.domain.Row;
+import treboder.optaplanner.examples.nqueens.domain.Column;
+import treboder.optaplanner.examples.nqueens.domain.Queen;
+import treboder.optaplanner.examples.nqueens.domain.Row;
+import treboder.optaplanner.examples.nqueens.domain.NQueens;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;

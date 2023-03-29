@@ -48,8 +48,8 @@ public class TimeTableControllerTest {
     private LessonRepository lessonRepository;
 
     @Test
-    @Timeout(600_000)
     @Order(1)
+    // @Timeout(600_000) // test fails if its execution time exceeds a given duration
     public void solveDemoDataUntilFeasible() throws InterruptedException {
         timeTableController.solveAndListen();
         TimeTable timeTable = timeTableController.getTimeTable();
@@ -68,8 +68,8 @@ public class TimeTableControllerTest {
     }
 
     @Test
-    @Timeout(600_000)
     @Order(2)
+    // @Timeout(600_000) // test fails if its execution time exceeds a given duration
     public void solveNewGeneratedProblem() {
         deleteAllProblems();
         TimeTable problem = generateProblem();

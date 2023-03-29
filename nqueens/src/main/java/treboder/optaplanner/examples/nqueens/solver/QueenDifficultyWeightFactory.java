@@ -1,8 +1,8 @@
-package treboder.optaplanner.examples.timetable.nqueens.solver;
+package treboder.optaplanner.examples.nqueens.solver;
 
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
-import treboder.optaplanner.examples.timetable.nqueens.domain.NQueens;
-import treboder.optaplanner.examples.timetable.nqueens.domain.Queen;
+import treboder.optaplanner.examples.nqueens.domain.NQueens;
+import treboder.optaplanner.examples.nqueens.domain.Queen;
 
 
 import java.util.Comparator;

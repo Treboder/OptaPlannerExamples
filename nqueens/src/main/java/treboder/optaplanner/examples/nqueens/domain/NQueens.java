@@ -1,4 +1,4 @@
-package treboder.optaplanner.examples.timetable.nqueens.domain;
+package treboder.optaplanner.examples.nqueens.domain;
 
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;

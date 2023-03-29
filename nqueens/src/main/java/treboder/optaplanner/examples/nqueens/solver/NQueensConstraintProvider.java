@@ -1,10 +1,10 @@
-package treboder.optaplanner.examples.timetable.nqueens.solver;
+package treboder.optaplanner.examples.nqueens.solver;
 
 import org.optaplanner.core.api.score.buildin.simple.SimpleScore;
 import org.optaplanner.core.api.score.stream.Constraint;
 import org.optaplanner.core.api.score.stream.ConstraintFactory;
 import org.optaplanner.core.api.score.stream.ConstraintProvider;
-import treboder.optaplanner.examples.timetable.nqueens.domain.Queen;
+import treboder.optaplanner.examples.nqueens.domain.Queen;
 
 import static org.optaplanner.core.api.score.stream.Joiners.equal;
 

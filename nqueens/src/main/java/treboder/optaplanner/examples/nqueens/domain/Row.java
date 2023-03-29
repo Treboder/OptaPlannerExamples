@@ -1,4 +1,4 @@
-package treboder.optaplanner.examples.timetable.nqueens.domain;
+package treboder.optaplanner.examples.nqueens.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -21,7 +21,9 @@ public class Row {
     }
 
     public Row(int index) {
+        this.id = Long.valueOf(index);
         this.index = index;
+
     }
 
     public int getIndex() {
