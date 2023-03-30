@@ -15,26 +15,27 @@ import java.util.List;
 @PlanningSolution
 public class NQueens {
 
+    private int n; // n queens
+
     @PlanningId
     @Id
     @GeneratedValue
     private Long id;
 
-    //@ValueRangeProvider ToDo why not?
-    @ProblemFactCollectionProperty
-    private List<Column> columnList;
-
     @ValueRangeProvider
     @ProblemFactCollectionProperty
     private List<Row> rowList;
+
+    // column is not a PlanningVariable, it is sufficient to change the row during solving,
+    // because there can be only one queen per row and column
+    @ProblemFactCollectionProperty
+    private List<Column> columnList;
 
     @PlanningEntityCollectionProperty
     private List<Queen> queenList;
 
     @PlanningScore
     private SimpleScore score;
-
-    private int n;
 
     public NQueens() {
     }
@@ -43,11 +44,13 @@ public class NQueens {
         this.id = id;
     }
 
-    public List<Column> getColumnList() {
-        return columnList;
+    public int getN() {
+        return n;
     }
 
-    public void setColumnList(List<Column> columnList) { this.columnList = columnList; }
+    public void setN(int n) {
+        this.n = n;
+    }
 
     public List<Row> getRowList() {
         return rowList;
@@ -56,6 +59,12 @@ public class NQueens {
     public void setRowList(List<Row> rowList) {
         this.rowList = rowList;
     }
+
+    public List<Column> getColumnList() {
+        return columnList;
+    }
+
+    public void setColumnList(List<Column> columnList) { this.columnList = columnList; }
 
     public List<Queen> getQueenList() {
         return queenList;
@@ -71,13 +80,6 @@ public class NQueens {
         this.score = score;
     }
 
-    public int getN() {
-        return n;
-    }
-
-    public void setN(int n) {
-        this.n = n;
-    }
 
 
 }

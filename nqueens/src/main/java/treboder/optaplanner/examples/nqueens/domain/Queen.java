@@ -5,10 +5,12 @@ import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import treboder.optaplanner.examples.nqueens.solver.QueenDifficultyWeightFactory;
+import treboder.optaplanner.examples.nqueens.solver.RowStrengthWeightFactory;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+//@PlanningEntity changes during planning, QueenDifficultyWeightFactory is optional
 @PlanningEntity(difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)
 public class Queen {
 
@@ -17,12 +19,13 @@ public class Queen {
     @GeneratedValue
     private Long id;
 
-    // @PlanningVariable ToDo why not?
-    private Column column;
-
-    //@PlanningVariable(strengthWeightFactoryClass = RowStrengthWeightFactory.class)
-    @PlanningVariable // changes during planning, between score calculations.
+    //@PlanningVariable changes during planning, RowStrengthWeightFactory is optional
+    @PlanningVariable(strengthWeightFactoryClass = RowStrengthWeightFactory.class)
     private Row row;
+
+    // column is not a PlanningVariable, it is sufficient to change the row during solving,
+    // because there can be only one queen per row and column
+    private Column column;
 
     public Queen() {
     }
@@ -37,14 +40,6 @@ public class Queen {
         this.column = column;
     }
 
-    public Column getColumn() {
-        return column;
-    }
-
-    public void setColumn(Column column) {
-        this.column = column;
-    }
-
     public Row getRow() {
         return row;
     }
@@ -53,9 +48,18 @@ public class Queen {
         this.row = row;
     }
 
-    // ************************************************************************
-    // Complex methods
-    // ************************************************************************
+    public Column getColumn() {
+        return column;
+    }
+
+    public void setColumn(Column column) {
+        this.column = column;
+    }
+
+    @Override
+    public String toString() {
+        return "Queen-" + column.getIndex();
+    }
 
     @JsonIgnore
     public int getColumnIndex() {
@@ -80,10 +84,6 @@ public class Queen {
         return (getColumnIndex() - getRowIndex());
     }
 
-    @Override
-    public String toString() {
-        return "Queen-" + column.getIndex();
-    }
 
 }
 

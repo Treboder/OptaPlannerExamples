@@ -1,13 +1,11 @@
 package treboder.optaplanner.examples.nqueens.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@JsonIdentityInfo(scope = Row.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@Entity
 public class Row {
 
     @PlanningId
@@ -32,10 +30,6 @@ public class Row {
 
     public void setIndex(int index) {
         this.index = index;
-    }
-
-    public String getLabel() {
-        return "Row " + index;
     }
 
     @Override

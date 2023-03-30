@@ -1,6 +1,5 @@
 package treboder.optaplanner.examples.nqueens.app;
 
-
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import treboder.optaplanner.examples.nqueens.domain.NQueens;

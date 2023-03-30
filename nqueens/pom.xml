@@ -53,6 +53,11 @@
 			<version>${version.org.optaplanner}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.optaplanner</groupId>
+			<artifactId>optaplanner-benchmark</artifactId>
+			<version>${version.org.optaplanner}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
