@@ -1,4 +1,4 @@
-package treboder.optaplanner.examples.nqueens.solver;
+package treboder.optaplanner.examples.nqueens.score;
 
 import org.optaplanner.core.api.score.buildin.simple.SimpleScore;
 import org.optaplanner.core.api.score.stream.Constraint;
