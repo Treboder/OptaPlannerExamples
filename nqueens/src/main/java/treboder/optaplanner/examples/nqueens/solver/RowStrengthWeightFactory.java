@@ -1,7 +1,7 @@
 package treboder.optaplanner.examples.nqueens.solver;
 
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
-import treboder.optaplanner.examples.nqueens.domain.Row;
+import treboder.optaplanner.examples.nqueens.domain.MyRow;
 import treboder.optaplanner.examples.nqueens.domain.NQueens;
 
 import java.util.Comparator;
@@ -10,7 +10,7 @@ import java.util.Comparator;
 // It tells the solver which planning variables have higher impact on the solution, and should be tried with priority.
 // cf. https://docs.jboss.org/optaplanner/release/7.54.0.Final/optaplanner-docs/html_single/#plannerConfiguration
 
-public class RowStrengthWeightFactory implements SelectionSorterWeightFactory<NQueens, Row> {
+public class RowStrengthWeightFactory implements SelectionSorterWeightFactory<NQueens, MyRow> {
 
     private static int calculateDistanceFromMiddle(int n, int columnIndex) {
         int middle = n / 2;
@@ -22,9 +22,9 @@ public class RowStrengthWeightFactory implements SelectionSorterWeightFactory<NQ
     }
 
     @Override
-    public RowStrengthWeight createSorterWeight(NQueens nQueens, Row row) {
-        int distanceFromMiddle = calculateDistanceFromMiddle(nQueens.getN(), row.getIndex());
-        return new RowStrengthWeight(row, distanceFromMiddle);
+    public RowStrengthWeight createSorterWeight(NQueens nQueens, MyRow myRow) {
+        int distanceFromMiddle = calculateDistanceFromMiddle(nQueens.getN(), myRow.getIndex());
+        return new RowStrengthWeight(myRow, distanceFromMiddle);
     }
 
     public static class RowStrengthWeight implements Comparable<RowStrengthWeight> {
@@ -32,13 +32,13 @@ public class RowStrengthWeightFactory implements SelectionSorterWeightFactory<NQ
         // The stronger rows are on the side, so they have a higher distance to the middle
         private static final Comparator<RowStrengthWeight> COMPARATOR = Comparator
                 .comparingInt((RowStrengthWeight weight) -> weight.distanceFromMiddle)
-                .thenComparingInt(weight -> weight.row.getIndex());
+                .thenComparingInt(weight -> weight.myRow.getIndex());
 
-        private final Row row;
+        private final MyRow myRow;
         private final int distanceFromMiddle;
 
-        public RowStrengthWeight(Row row, int distanceFromMiddle) {
-            this.row = row;
+        public RowStrengthWeight(MyRow myRow, int distanceFromMiddle) {
+            this.myRow = myRow;
             this.distanceFromMiddle = distanceFromMiddle;
         }
 

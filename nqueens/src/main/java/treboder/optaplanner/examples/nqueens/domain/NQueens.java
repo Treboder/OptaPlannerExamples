@@ -7,6 +7,7 @@ import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.simple.SimpleScore;
+import org.optaplanner.core.api.solver.SolverStatus;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,27 +16,29 @@ import java.util.List;
 @PlanningSolution
 public class NQueens {
 
-    private int n; // n queens
-
-    @PlanningId
-    @Id
-    @GeneratedValue
+    @PlanningId         // OptaPlanner
+    @Id @GeneratedValue // Hibernate
     private Long id;
 
     @ValueRangeProvider
     @ProblemFactCollectionProperty
-    private List<Row> rowList;
+    private List<MyRow> myRowList;
 
     // column is not a PlanningVariable, it is sufficient to change the row during solving,
     // because there can be only one queen per row and column
     @ProblemFactCollectionProperty
-    private List<Column> columnList;
+    private List<MyColumn> myColumnList;
 
     @PlanningEntityCollectionProperty
     private List<Queen> queenList;
 
     @PlanningScore
     private SimpleScore score;
+
+    private int n; // n queens
+
+    // Ignored by OptaPlanner, used by the UI to display solve or stop solving button
+    private SolverStatus solverStatus;
 
     public NQueens() {
     }
@@ -44,27 +47,27 @@ public class NQueens {
         this.id = id;
     }
 
-    public int getN() {
-        return n;
+    public NQueens(long id, List<MyRow> myRowList, List<MyColumn> myColumnList, List<Queen> queenList) {
+        this.id = id;
+        this.myRowList = myRowList;
+        this.myColumnList = myColumnList;
+        this.queenList = queenList;
+        this.n = queenList.size();
     }
 
-    public void setN(int n) {
-        this.n = n;
+    public List<MyRow> getRowList() {
+        return myRowList;
     }
 
-    public List<Row> getRowList() {
-        return rowList;
+    public void setRowList(List<MyRow> myRowList) {
+        this.myRowList = myRowList;
     }
 
-    public void setRowList(List<Row> rowList) {
-        this.rowList = rowList;
+    public List<MyColumn> getColumnList() {
+        return myColumnList;
     }
 
-    public List<Column> getColumnList() {
-        return columnList;
-    }
-
-    public void setColumnList(List<Column> columnList) { this.columnList = columnList; }
+    public void setColumnList(List<MyColumn> myColumnList) { this.myColumnList = myColumnList; }
 
     public List<Queen> getQueenList() {
         return queenList;
@@ -80,6 +83,19 @@ public class NQueens {
         this.score = score;
     }
 
+    public int getN() {
+        return n;
+    }
 
+    public void setN(int n) {
+        this.n = n;
+    }
 
+    public SolverStatus getSolverStatus() {
+        return solverStatus;
+    }
+
+    public void setSolverStatus(SolverStatus solverStatus) {
+        this.solverStatus = solverStatus;
+    }
 }

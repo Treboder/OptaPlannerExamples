@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import treboder.optaplanner.examples.nqueens.domain.NQueens;
 import treboder.optaplanner.examples.nqueens.domain.Queen;
 import treboder.optaplanner.examples.nqueens.persistence.NQueensGenerator;
+import treboder.optaplanner.examples.nqueens.persistence.NQueensRepository;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -22,8 +23,8 @@ public class NQueensController {
 
     private static Logger logger = LoggerFactory.getLogger(NQueensGenerator.class);
 
-//    @Autowired
-//    private TimeTableRepository timeTableRepository;
+    @Autowired
+    private NQueensRepository nQueensRepository;
 
     @Autowired
     private SolverManager<NQueens, Long> solverManager;
@@ -49,9 +50,8 @@ public class NQueensController {
 
     @PostMapping("/solveWithManagerAndWait") // waits for the solver to finish, which can still cause an HTTP timeout.
     public NQueens solveWithManagerAndWait() {
-        //SolverJob<NQueens, Long> solverJob = solverManager.solve(TimeTableRepository.SINGLETON_TIME_TABLE_ID, problem);
         NQueens problem = new NQueensGenerator().createNQueens(8);
-        SolverJob<NQueens, Long> solverJob = solverManager.solve(1L, problem);
+        SolverJob<NQueens, Long> solverJob = solverManager.solve(nQueensRepository.SINGLETON_NQUEENS_ID, problem);
         NQueens solution;
         try {
             // Wait until the solving ends
@@ -64,33 +64,29 @@ public class NQueensController {
         return solution;
     }
 
-//    @PostMapping("/solveAndListen") // avoids HTTP timeouts much more elegantly.
-//    public void solveAndListen() {
-//        solverManager.solveAndListen(TimeTableRepository.SINGLETON_TIME_TABLE_ID,
-//                timeTableRepository::findById,
-//                timeTableRepository::save);
-//    }
+    @PostMapping("/solveAndListen") // avoids HTTP timeouts much more elegantly.
+    public void solveAndListen() {
+        NQueens problem = new NQueensGenerator().createNQueens(8);
+        nQueensRepository.save(problem);
+        solverManager.solveAndListen(nQueensRepository.SINGLETON_NQUEENS_ID,
+                nQueensRepository::findById,
+                nQueensRepository::save);
+    }
 
-//    @GetMapping()
-//    public TimeTable getTimeTable() {
-//        // Get the solver status before loading the solution
-//        // to avoid the race condition that the solver terminates between them
-//        SolverStatus solverStatus = getSolverStatus();
-//        TimeTable solution = timeTableRepository.findById(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
-//        scoreManager.updateScore(solution); // Sets the score
-//        solution.setSolverStatus(solverStatus);
-//        return solution;
-//    }
+    @GetMapping()
+    public NQueens getNQueens() {
+        // Get the solver status before loading the solution to avoid the race condition that the solver terminates between them
+        SolverStatus solverStatus = solverManager.getSolverStatus(nQueensRepository.SINGLETON_NQUEENS_ID);
+        NQueens solution = nQueensRepository.findById(nQueensRepository.SINGLETON_NQUEENS_ID);
+        scoreManager.updateScore(solution); // Sets the score
+        solution.setSolverStatus(solverStatus);
+        return solution;
+    }
 
-
-//    public SolverStatus getSolverStatus() {
-//        return solverManager.getSolverStatus(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
-//    }
-
-//    @PostMapping("/stopSolving")
-//    public void stopSolving() {
-//        solverManager.terminateEarly(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
-//    }
+    @PostMapping("/stopSolving")
+    public void stopSolving() {
+        solverManager.terminateEarly(nQueensRepository.SINGLETON_NQUEENS_ID);
+    }
 
     private static String toDisplayString(NQueens nQueens) {
         StringBuilder displayString = new StringBuilder();

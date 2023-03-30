@@ -3,9 +3,9 @@ package treboder.optaplanner.examples.nqueens.persistence;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import treboder.optaplanner.examples.nqueens.domain.Column;
+import treboder.optaplanner.examples.nqueens.domain.MyColumn;
 import treboder.optaplanner.examples.nqueens.domain.Queen;
-import treboder.optaplanner.examples.nqueens.domain.Row;
+import treboder.optaplanner.examples.nqueens.domain.MyRow;
 import treboder.optaplanner.examples.nqueens.domain.NQueens;
 
 import java.math.BigInteger;
@@ -14,6 +14,9 @@ import java.util.List;
 
 public class NQueensGenerator {
 
+    // There is only one problem instance, so there is only obe nqueensID
+    public static final Long SINGLETON_NQUEENS_ID = 1L;
+
     private static Logger logger = LoggerFactory.getLogger(NQueensGenerator.class);
 
     public NQueensGenerator() {
@@ -21,7 +24,7 @@ public class NQueensGenerator {
     }
 
     public NQueens createNQueens(int n) {
-        NQueens nQueens = new NQueens(0L);
+        NQueens nQueens = new NQueens(SINGLETON_NQUEENS_ID);
         nQueens.setN(n);
         nQueens.setColumnList(createColumnList(nQueens));
         nQueens.setRowList(createRowList(nQueens));
@@ -34,34 +37,34 @@ public class NQueensGenerator {
         return nQueens;
     }
 
-    private List<Column> createColumnList(NQueens nQueens) {
+    private List<MyColumn> createColumnList(NQueens nQueens) {
         int n = nQueens.getN();
-        List<Column> columnList = new ArrayList<>(n);
+        List<MyColumn> myColumnList = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
-            Column column = new Column(i);
-            columnList.add(column);
+            MyColumn myColumn = new MyColumn(i);
+            myColumnList.add(myColumn);
         }
-        return columnList;
+        return myColumnList;
     }
 
-    private List<Row> createRowList(NQueens nQueens) {
+    private List<MyRow> createRowList(NQueens nQueens) {
         int n = nQueens.getN();
-        List<Row> rowList = new ArrayList<>(n);
+        List<MyRow> myRowList = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
-            Row row = new Row(i);
-            rowList.add(row);
+            MyRow myRow = new MyRow(i);
+            myRowList.add(myRow);
         }
-        return rowList;
+        return myRowList;
     }
 
     private List<Queen> createQueenList(NQueens nQueens) {
         int n = nQueens.getN();
         List<Queen> queenList = new ArrayList<>(n);
         long id = 0;
-        for (Column column : nQueens.getColumnList()) {
+        for (MyColumn myColumn : nQueens.getColumnList()) {
             Queen queen = new Queen(id);
             id++;
-            queen.setColumn(column);
+            queen.setColumn(myColumn);
             // Notice that we leave the PlanningVariable properties on null
             queenList.add(queen);
         }

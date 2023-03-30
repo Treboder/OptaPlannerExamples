@@ -7,27 +7,31 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import treboder.optaplanner.examples.nqueens.solver.QueenDifficultyWeightFactory;
 import treboder.optaplanner.examples.nqueens.solver.RowStrengthWeightFactory;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 //@PlanningEntity changes during planning, optionally QueenDifficultyWeightFactory improves solver performance
 // cf. https://docs.jboss.org/optaplanner/release/7.54.0.Final/optaplanner-docs/html_single/#plannerConfiguration
 @PlanningEntity(difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)
+@Entity // Hibernate
 public class Queen {
 
-    @PlanningId
-    @Id
-    @GeneratedValue
+    @PlanningId         // OptaPlanner
+    @Id @GeneratedValue // Hibernate
     private Long id;
 
     //@PlanningVariable changes during planning, optionally RowStrengthWeightFactory improves solver performance
     // cf. https://docs.jboss.org/optaplanner/release/7.54.0.Final/optaplanner-docs/html_single/#plannerConfiguration
     @PlanningVariable(strengthWeightFactoryClass = RowStrengthWeightFactory.class)
-    private Row row;
+    @OneToOne
+    private MyRow myRow;
 
     // column is not a PlanningVariable, it is sufficient to change the row during solving,
     // because there can be only one queen per row and column
-    private Column column;
+    @OneToOne
+    private MyColumn myColumn;
 
     public Queen() {
     }
@@ -36,44 +40,44 @@ public class Queen {
         this.id = id;
     }
 
-    public Queen(long id, Row row, Column column) {
+    public Queen(long id, MyRow myRow, MyColumn myColumn) {
         this.id = id;
-        this.row = row;
-        this.column = column;
+        this.myRow = myRow;
+        this.myColumn = myColumn;
     }
 
-    public Row getRow() {
-        return row;
+    public MyRow getRow() {
+        return myRow;
     }
 
-    public void setRow(Row row) {
-        this.row = row;
+    public void setRow(MyRow myRow) {
+        this.myRow = myRow;
     }
 
-    public Column getColumn() {
-        return column;
+    public MyColumn getColumn() {
+        return myColumn;
     }
 
-    public void setColumn(Column column) {
-        this.column = column;
+    public void setColumn(MyColumn myColumn) {
+        this.myColumn = myColumn;
     }
 
     @Override
     public String toString() {
-        return "Queen-" + column.getIndex();
+        return "Queen-" + myColumn.getIndex();
     }
 
     @JsonIgnore
     public int getColumnIndex() {
-        return column.getIndex();
+        return myColumn.getIndex();
     }
 
     @JsonIgnore
     public int getRowIndex() {
-        if (row == null) {
+        if (myRow == null) {
             return Integer.MIN_VALUE;
         }
-        return row.getIndex();
+        return myRow.getIndex();
     }
 
     @JsonIgnore

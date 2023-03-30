@@ -2,23 +2,23 @@ package treboder.optaplanner.examples.nqueens.domain;
 
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public class Column {
+@Entity // Hibernate
+public class MyRow {
 
-    @PlanningId
-    @Id
-    @GeneratedValue
+    @PlanningId         // OptaPlanner
+    @Id @GeneratedValue // Hibernate
     private Long id;
 
     private int index;
 
-    public Column() {
+    public MyRow() {
     }
 
-    public Column(int index) {
-        this.id = Long.valueOf(index);
+    public MyRow(int index) {
         this.index = index;
     }
 
@@ -32,7 +32,7 @@ public class Column {
 
     @Override
     public String toString() {
-        return "Column-" + index;
+        return "Row-" + index;
     }
 
 }
