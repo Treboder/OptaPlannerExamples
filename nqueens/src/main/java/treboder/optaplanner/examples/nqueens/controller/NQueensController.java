@@ -31,32 +31,10 @@ public class NQueensController {
     @Autowired
     private ScoreManager<NQueens, HardSoftScore> scoreManager;
 
-//    @GetMapping()
-//    public TimeTable getTimeTable() {
-//        // Get the solver status before loading the solution
-//        // to avoid the race condition that the solver terminates between them
-//        SolverStatus solverStatus = getSolverStatus();
-//        TimeTable solution = timeTableRepository.findById(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
-//        scoreManager.updateScore(solution); // Sets the score
-//        solution.setSolverStatus(solverStatus);
-//        return solution;
-//    }
-
-//    @PostMapping("/solveAndListen") // avoids HTTP timeouts much more elegantly.
-//    public void solveAndListen() {
-//        solverManager.solveAndListen(TimeTableRepository.SINGLETON_TIME_TABLE_ID,
-//                timeTableRepository::findById,
-//                timeTableRepository::save);
-//    }
-
-    @PostMapping("/solveAndWait") // waits for the solver to finish, which can still cause an HTTP timeout.
-    public NQueens solveAndWait() {
+    @PostMapping("/solveWithNewConfigAndWait") // waits for the solver to finish, which can still cause an HTTP timeout.
+    public NQueens solveWithNewConfigAndWait() {
         //TimeTable problem = timeTableRepository.findById(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
         NQueens problem = new NQueensGenerator().createNQueens(8);
-        return solveWithNewConfig(problem);
-    }
-
-    public NQueens solveWithNewConfig(NQueens problem) {
         SolverConfig solverConfig = SolverConfig.createFromXmlResource("nqueensSolverConfig.xml");
         solverConfig.withTerminationConfig(new TerminationConfig()
                 .withMinutesSpentLimit(1L)
@@ -69,8 +47,10 @@ public class NQueensController {
         return solution;
     }
 
-    public NQueens solveWithManager(NQueens problem) {
+    @PostMapping("/solveWithManagerAndWait") // waits for the solver to finish, which can still cause an HTTP timeout.
+    public NQueens solveWithManagerAndWait() {
         //SolverJob<NQueens, Long> solverJob = solverManager.solve(TimeTableRepository.SINGLETON_TIME_TABLE_ID, problem);
+        NQueens problem = new NQueensGenerator().createNQueens(8);
         SolverJob<NQueens, Long> solverJob = solverManager.solve(1L, problem);
         NQueens solution;
         try {
@@ -84,10 +64,29 @@ public class NQueensController {
         return solution;
     }
 
+//    @PostMapping("/solveAndListen") // avoids HTTP timeouts much more elegantly.
+//    public void solveAndListen() {
+//        solverManager.solveAndListen(TimeTableRepository.SINGLETON_TIME_TABLE_ID,
+//                timeTableRepository::findById,
+//                timeTableRepository::save);
+//    }
+
+//    @GetMapping()
+//    public TimeTable getTimeTable() {
+//        // Get the solver status before loading the solution
+//        // to avoid the race condition that the solver terminates between them
+//        SolverStatus solverStatus = getSolverStatus();
+//        TimeTable solution = timeTableRepository.findById(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
+//        scoreManager.updateScore(solution); // Sets the score
+//        solution.setSolverStatus(solverStatus);
+//        return solution;
+//    }
+
+
 //    public SolverStatus getSolverStatus() {
 //        return solverManager.getSolverStatus(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
 //    }
-//
+
 //    @PostMapping("/stopSolving")
 //    public void stopSolving() {
 //        solverManager.terminateEarly(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
