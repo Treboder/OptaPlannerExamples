@@ -5,7 +5,6 @@ import org.optaplanner.core.api.domain.lookup.PlanningId;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-//@Entity
 public class Column {
 
     @PlanningId

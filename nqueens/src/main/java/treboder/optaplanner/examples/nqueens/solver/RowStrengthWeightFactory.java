@@ -6,6 +6,10 @@ import treboder.optaplanner.examples.nqueens.domain.NQueens;
 
 import java.util.Comparator;
 
+// RowStrengthWeightFactory improves solver performance with domain-knowledge.
+// It tells the solver which planning variables have higher impact on the solution, and should be tried with priority.
+// cf. https://docs.jboss.org/optaplanner/release/7.54.0.Final/optaplanner-docs/html_single/#plannerConfiguration
+
 public class RowStrengthWeightFactory implements SelectionSorterWeightFactory<NQueens, Row> {
 
     private static int calculateDistanceFromMiddle(int n, int columnIndex) {

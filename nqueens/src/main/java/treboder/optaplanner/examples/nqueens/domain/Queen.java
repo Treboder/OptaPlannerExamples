@@ -10,7 +10,8 @@ import treboder.optaplanner.examples.nqueens.solver.RowStrengthWeightFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-//@PlanningEntity changes during planning, QueenDifficultyWeightFactory is optional
+//@PlanningEntity changes during planning, optionally QueenDifficultyWeightFactory improves solver performance
+// cf. https://docs.jboss.org/optaplanner/release/7.54.0.Final/optaplanner-docs/html_single/#plannerConfiguration
 @PlanningEntity(difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)
 public class Queen {
 
@@ -19,7 +20,8 @@ public class Queen {
     @GeneratedValue
     private Long id;
 
-    //@PlanningVariable changes during planning, RowStrengthWeightFactory is optional
+    //@PlanningVariable changes during planning, optionally RowStrengthWeightFactory improves solver performance
+    // cf. https://docs.jboss.org/optaplanner/release/7.54.0.Final/optaplanner-docs/html_single/#plannerConfiguration
     @PlanningVariable(strengthWeightFactoryClass = RowStrengthWeightFactory.class)
     private Row row;
 

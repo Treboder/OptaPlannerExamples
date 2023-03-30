@@ -4,8 +4,11 @@ import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSo
 import treboder.optaplanner.examples.nqueens.domain.NQueens;
 import treboder.optaplanner.examples.nqueens.domain.Queen;
 
-
 import java.util.Comparator;
+
+// QueenDifficultyWeightFactory improves solver performance with move steps guided with domain-knowledge.
+// Without it, the solver defaults to random selection during search.
+// cf. https://docs.jboss.org/optaplanner/release/7.54.0.Final/optaplanner-docs/html_single/#plannerConfiguration
 
 public class QueenDifficultyWeightFactory implements SelectionSorterWeightFactory<NQueens, Queen> {
 
