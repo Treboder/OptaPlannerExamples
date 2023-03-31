@@ -9,8 +9,9 @@ public class NQueensBenchmarkApp extends CommonBenchmarkApp {
     public NQueensBenchmarkApp() {
         super(
                 new ArgOption("default", "benchmark/nqueensBenchmarkConfig.xml")
-                //,new ArgOption("stepLimit", "benchmark/nqueensStepLimitBenchmarkConfig.xml")
-                //,new ArgOption("scoreDirector", "benchmark/nqueensScoreDirectorBenchmarkConfig.xml")
+                // ToDo: figure out how to use scoreDirector and stepLimit below
+                // ,new ArgOption("scoreDirector", "benchmark/nqueensScoreDirectorBenchmarkConfig.xml")
+                // ,new ArgOption("stepLimit", "benchmark/nqueensStepLimitBenchmarkConfig.xml")
         );
     }
 

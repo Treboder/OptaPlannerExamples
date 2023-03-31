@@ -23,6 +23,7 @@
       <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
       <inputSolutionFile>benchmarks/nqueens/data/unsolved/32queens.json</inputSolutionFile>
       <inputSolutionFile>benchmarks/nqueens/data/unsolved/64queens.json</inputSolutionFile>
+      <inputSolutionFile>benchmarks/nqueens/data/unsolved/256queens.json</inputSolutionFile>
       <!--<problemStatisticType>BEST_SCORE</problemStatisticType>-->
       <!--<problemStatisticType>STEP_SCORE</problemStatisticType>-->
       <!--<problemStatisticType>SCORE_CALCULATION_SPEED</problemStatisticType>-->
