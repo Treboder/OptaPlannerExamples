@@ -17,7 +17,7 @@ import java.util.List;
 
 public class NQueensGenerator {
 
-    // There is only one problem instance, so there is only obe nqueensID
+    // There is only one problem instance, so there is only one id
     public static final Long SINGLETON_NQUEENS_ID = 1L;
 
     private static Logger logger = LoggerFactory.getLogger(NQueensGenerator.class);

@@ -1,4 +1,4 @@
-nqueens/report
+benchmarks
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
