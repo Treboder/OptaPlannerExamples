@@ -1,4 +1,4 @@
-package treboder.optaplanner.examples.nqueens.persistence;
+package treboder.optaplanner.examples.nqueens.data;
 
 
 import org.slf4j.Logger;
@@ -8,6 +8,7 @@ import treboder.optaplanner.examples.nqueens.domain.Queen;
 import treboder.optaplanner.examples.nqueens.domain.MyRow;
 import treboder.optaplanner.examples.nqueens.domain.NQueens;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,7 @@ public class NQueensGenerator {
         nQueens.setQueenList(createQueenList(nQueens));
         BigInteger possibleSolutionSize = BigInteger.valueOf(nQueens.getN()).pow(nQueens.getN());
         logger.info("NQueens {} has {} queens with a search space of {}.",
-                n, nQueens.getN()
-                //,AbstractSolutionImporter.getFlooredPossibleSolutionSize(possibleSolutionSize)
-                );
+                n, nQueens.getN(), getFlooredPossibleSolutionSize(possibleSolutionSize));
         return nQueens;
     }
 
@@ -71,4 +70,17 @@ public class NQueensGenerator {
         return queenList;
     }
 
+    private static String getFlooredPossibleSolutionSize(BigInteger possibleSolutionSize) {
+        if (possibleSolutionSize == null) {
+            return null;
+        }
+        if (possibleSolutionSize.compareTo(BigInteger.valueOf(1000L)) < 0) {
+            return possibleSolutionSize.toString();
+        }
+        BigDecimal possibleSolutionSizeBigDecimal = new BigDecimal(possibleSolutionSize);
+        int decimalDigits = possibleSolutionSizeBigDecimal.scale() < 0
+                ? possibleSolutionSizeBigDecimal.precision() - possibleSolutionSizeBigDecimal.scale()
+                : possibleSolutionSizeBigDecimal.precision();
+        return "10^" + decimalDigits;
+    }
 }

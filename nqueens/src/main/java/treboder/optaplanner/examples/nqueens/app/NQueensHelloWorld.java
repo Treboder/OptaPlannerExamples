@@ -4,7 +4,7 @@ import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import treboder.optaplanner.examples.nqueens.domain.NQueens;
 import treboder.optaplanner.examples.nqueens.domain.Queen;
-import treboder.optaplanner.examples.nqueens.persistence.NQueensGenerator;
+import treboder.optaplanner.examples.nqueens.data.NQueensGenerator;
 
 import java.util.List;
 

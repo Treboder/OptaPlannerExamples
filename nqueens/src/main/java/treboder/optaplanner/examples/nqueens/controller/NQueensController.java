@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import treboder.optaplanner.examples.nqueens.domain.NQueens;
 import treboder.optaplanner.examples.nqueens.domain.Queen;
-import treboder.optaplanner.examples.nqueens.persistence.NQueensGenerator;
+import treboder.optaplanner.examples.nqueens.data.NQueensGenerator;
 import treboder.optaplanner.examples.nqueens.persistence.NQueensRepository;
 
 import java.util.List;
@@ -32,10 +32,16 @@ public class NQueensController {
     @Autowired
     private ScoreManager<NQueens, HardSoftScore> scoreManager;
 
+    @PostMapping("createNQueens")
+    public NQueens createNQueens(@RequestParam(defaultValue = "8") int n) {
+        NQueens nQueens = new NQueensGenerator().createNQueens(n);
+        nQueensRepository.save(nQueens);
+        return nQueens;
+    }
+
     @PostMapping("/solveWithNewConfigAndWait") // waits for the solver to finish, which can still cause an HTTP timeout.
     public NQueens solveWithNewConfigAndWait() {
-        //TimeTable problem = timeTableRepository.findById(TimeTableRepository.SINGLETON_TIME_TABLE_ID);
-        NQueens problem = new NQueensGenerator().createNQueens(8);
+        NQueens problem = nQueensRepository.findById(nQueensRepository.SINGLETON_NQUEENS_ID);
         SolverConfig solverConfig = SolverConfig.createFromXmlResource("nqueensSolverConfig.xml");
         solverConfig.withTerminationConfig(new TerminationConfig()
                 .withMinutesSpentLimit(1L)
@@ -43,14 +49,13 @@ public class NQueensController {
         SolverFactory<NQueens> solverFactory = SolverFactory.create(solverConfig);
         Solver<NQueens> solver = solverFactory.buildSolver();
         NQueens solution = solver.solve(problem);
-        // Display the result
-        logger.info("Solved 8 queens:\n" + toDisplayString(solution));
+        logWithResults(solution);
         return solution;
     }
 
     @PostMapping("/solveWithManagerAndWait") // waits for the solver to finish, which can still cause an HTTP timeout.
     public NQueens solveWithManagerAndWait() {
-        NQueens problem = new NQueensGenerator().createNQueens(8);
+        NQueens problem = nQueensRepository.findById(nQueensRepository.SINGLETON_NQUEENS_ID);
         SolverJob<NQueens, Long> solverJob = solverManager.solve(nQueensRepository.SINGLETON_NQUEENS_ID, problem);
         NQueens solution;
         try {
@@ -59,15 +64,13 @@ public class NQueensController {
         } catch (InterruptedException | ExecutionException e) {
             throw new IllegalStateException("Solving failed.", e);
         }
-        // Display the result
-        logger.info("Solved 8 queens:\n" + toDisplayString(solution));
+        logWithResults(solution);
         return solution;
     }
 
     @PostMapping("/solveAndListen") // avoids HTTP timeouts much more elegantly.
     public void solveAndListen() {
-        NQueens problem = new NQueensGenerator().createNQueens(8);
-        nQueensRepository.save(problem);
+        NQueens problem = nQueensRepository.findById(nQueensRepository.SINGLETON_NQUEENS_ID);
         solverManager.solveAndListen(nQueensRepository.SINGLETON_NQUEENS_ID,
                 nQueensRepository::findById,
                 nQueensRepository::save);
@@ -88,7 +91,7 @@ public class NQueensController {
         solverManager.terminateEarly(nQueensRepository.SINGLETON_NQUEENS_ID);
     }
 
-    private static String toDisplayString(NQueens nQueens) {
+    private void logWithResults(NQueens nQueens) {
         StringBuilder displayString = new StringBuilder();
         int n = nQueens.getN();
         List<Queen> queenList = nQueens.getQueenList();
@@ -107,7 +110,7 @@ public class NQueensController {
             }
             displayString.append("\n");
         }
-        return displayString.toString();
+        logger.info("Solved {} queens \n {}", nQueens.getN(), displayString.toString());
     }
 
 }
