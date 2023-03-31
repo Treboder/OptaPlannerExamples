@@ -41,5 +41,11 @@ public class NQueensRepository {
         queenRepository.saveAll(nqueens.getQueenList());
     }
 
+    public void delete() {
+        rowRepository.deleteAll();
+        columnRepository.deleteAll();
+        queenRepository.deleteAll();
+    }
+
 }
 

@@ -34,6 +34,7 @@ public class NQueensController {
 
     @PostMapping("createNQueens")
     public NQueens createNQueens(@RequestParam(defaultValue = "8") int n) {
+        nQueensRepository.delete(); // only one single nqueens at atime
         NQueens nQueens = new NQueensGenerator().createNQueens(n);
         nQueensRepository.save(nQueens);
         return nQueens;
