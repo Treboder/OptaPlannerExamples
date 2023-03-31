@@ -1,6 +1,7 @@
 package treboder.optaplanner.examples.nqueens.data;
 
 
+import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import treboder.optaplanner.examples.nqueens.domain.MyColumn;
@@ -8,6 +9,7 @@ import treboder.optaplanner.examples.nqueens.domain.Queen;
 import treboder.optaplanner.examples.nqueens.domain.MyRow;
 import treboder.optaplanner.examples.nqueens.domain.NQueens;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -19,10 +21,6 @@ public class NQueensGenerator {
     public static final Long SINGLETON_NQUEENS_ID = 1L;
 
     private static Logger logger = LoggerFactory.getLogger(NQueensGenerator.class);
-
-    public NQueensGenerator() {
-
-    }
 
     public NQueens createNQueens(int n) {
         NQueens nQueens = new NQueens(SINGLETON_NQUEENS_ID);
@@ -83,4 +81,5 @@ public class NQueensGenerator {
                 : possibleSolutionSizeBigDecimal.precision();
         return "10^" + decimalDigits;
     }
+
 }
