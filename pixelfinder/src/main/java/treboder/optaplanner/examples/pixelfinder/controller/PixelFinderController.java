@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import treboder.optaplanner.examples.pixelfinder.PixelfinderApplication;
 import treboder.optaplanner.examples.pixelfinder.data.PixelFinderGenerator;
@@ -33,8 +34,8 @@ public class PixelFinderController {
     //private ScoreManager<PixelFinder, HardSoftScore> scoreManager;
 
     @PostMapping("/solveWithManagerAndWait") // waits for the solver to finish, which can still cause an HTTP timeout.
-    public PixelFinder PixelFindersolveWithManagerAndWait() {
-        PixelFinder problem = new PixelFinderGenerator().createPixelFinder(10000);
+    public PixelFinder PixelFindersolveWithManagerAndWait(@RequestParam(defaultValue = "10000") int mapsize) {
+        PixelFinder problem = new PixelFinderGenerator().createPixelFinder(mapsize);
         SolverJob<PixelFinder, Long> solverJob = solverManager.solve(1L, problem);
         PixelFinder solution;
         try { // wait until the solving ends
