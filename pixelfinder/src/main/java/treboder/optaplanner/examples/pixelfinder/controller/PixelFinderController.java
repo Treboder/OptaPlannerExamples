@@ -34,7 +34,7 @@ public class PixelFinderController {
     //private ScoreManager<PixelFinder, HardSoftScore> scoreManager;
 
     @PostMapping("/solveWithManagerAndWait") // waits for the solver to finish, which can still cause an HTTP timeout.
-    public PixelFinder PixelFindersolveWithManagerAndWait(@RequestParam(defaultValue = "10000") int mapsize) {
+    public PixelFinder PixelFindersolveWithManagerAndWait(@RequestParam(defaultValue = "20") int mapsize) {
         PixelFinder problem = new PixelFinderGenerator().createPixelFinder(mapsize);
         SolverJob<PixelFinder, Long> solverJob = solverManager.solve(1L, problem);
         PixelFinder solution;

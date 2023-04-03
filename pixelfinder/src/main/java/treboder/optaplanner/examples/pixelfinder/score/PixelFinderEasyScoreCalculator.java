@@ -8,15 +8,28 @@ public class PixelFinderEasyScoreCalculator implements EasyScoreCalculator<Pixel
 
     @Override
     public SimpleScore calculateScore(PixelFinder pixelFinder) {
-        int score = 0;
+        int score = -1;
 
-        if(pixelFinder.getPixel().getXValue() != (pixelFinder.getMapSize()/2))
-            score-- ;
-
-        if(pixelFinder.getPixel().getYValue() != (pixelFinder.getMapSize()/2))
-            score-- ;
+        if(pixelFinder.getPixel().getXValue() == (pixelFinder.getMapSize()/2))
+            if(pixelFinder.getPixel().getYValue() == (pixelFinder.getMapSize()/2))
+                score = 0 ;
 
         return SimpleScore.of(score);
     }
+
+//    @Override
+//    public SimpleScore calculateScore(PixelFinder pixelFinder) {
+//        int score = 0;
+//
+//        if(pixelFinder.getPixel().getXValue() != (pixelFinder.getMapSize()/2))
+//            score-- ;
+//
+//        if(pixelFinder.getPixel().getYValue() != (pixelFinder.getMapSize()/2))
+//            score-- ;
+//
+//        return SimpleScore.of(score);
+//    }
+
+
 
 }

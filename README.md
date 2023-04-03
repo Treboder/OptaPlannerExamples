@@ -5,7 +5,7 @@ OpenAPI provides Swagger UI accessible via [http://localhost:8080/swagger-ui/ind
 We demonstrate three uses cases:
 * [Timetable - OptaPlanner Spring Boot quick start](https://www.optaplanner.org/docs/optaplanner/latest/quickstart/spring-boot/spring-boot-quickstart.html)
 * [NQueens - OptaPlanner example](https://www.optaplanner.org/docs/optaplanner/latest/use-cases-and-examples/use-cases-and-examples.html#nQueens)
-* Pixelfinder - Simple scenario with the task to find a single pixel on 2D-maps with different structures  
+* Pixelfinder - Simple scenario with the task to find a single pixel on an empty 2D-map  
 
 ### Frameworks
 
