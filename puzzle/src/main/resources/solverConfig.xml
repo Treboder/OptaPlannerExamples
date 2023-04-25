@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver xmlns="https://www.optaplanner.org/xsd/solver" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.optaplanner.org/xsd/solver https://www.optaplanner.org/xsd/solver/solver.xsd">
+
+  <!-- To slowly prove there are no bugs in this code -->
+  <!--<environmentMode>FULL_ASSERT</environmentMode>-->
+
+  <!-- To solve faster by saturating multiple CPU cores -->
+  <!--<moveThreadCount>AUTO</moveThreadCount>-->
+
+  <!-- Domain definition-->
+  <solutionClass>com.mosaic.puzzle.domain.PuzzleSolution</solutionClass>
+  <entityClass>com.mosaic.puzzle.domain.PuzzleTile</entityClass>
+
+  <!-- Constraints and Score calculation -->
+  <scoreDirectorFactory>
+    <easyScoreCalculatorClass>com.mosaic.puzzle.score.PuzzleEasyScoreCalculator</easyScoreCalculatorClass>
+    <initializingScoreTrend>ANY</initializingScoreTrend>
+  </scoreDirectorFactory>
+
+<!--   termination conditions -->
+  <termination>
+    <secondsSpentLimit>10</secondsSpentLimit>
+    <bestScoreLimit>0hard/0soft</bestScoreLimit>
+  </termination>
+
+  <!-- construction phase -->
+  <constructionHeuristic>
+    <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+    <forager>
+<!--      <pickEarlyType>NEVER</pickEarlyType>-->
+      <pickEarlyType>FIRST_NON_DETERIORATING_SCORE</pickEarlyType>
+    </forager>
+  </constructionHeuristic>
+
+  <!-- local search phase -->
+  <localSearch>
+<!--    <swapMoveSelector/>    -->
+<!--    <changeMoveSelector>-->
+<!--      <selectionOrder>ORIGINAL</selectionOrder>-->
+<!--    </changeMoveSelector>-->
+    <!-- changeMoveSelector is the generic form of RowChangeMoveFactory: -->
+    <!--<moveListFactory>-->
+      <!--<moveListFactoryClass>org.optaplanner.examples.nqueens.optional.solver.move.factory.RowChangeMoveFactory</moveListFactoryClass>-->
+    <!--</moveListFactory>-->
+<!--    <acceptor>-->
+<!--      <entityTabuSize>5</entityTabuSize>-->
+<!--    </acceptor>-->
+<!--    <forager>-->
+<!--      &lt;!&ndash; Real world problems require use of <acceptedCountLimit> &ndash;&gt;-->
+<!--    </forager>-->
+  </localSearch>
+
+  <!-- To scale out, replace <localSearch> with this configuration: -->
+  <!--<localSearch>-->
+    <!--<acceptor>-->
+      <!--<entityTabuSize>11</entityTabuSize>-->
+    <!--</acceptor>-->
+    <!--<forager>-->
+      <!--<acceptedCountLimit>2000</acceptedCountLimit>-->
+      <!--<pickEarlyType>FIRST_BEST_SCORE_IMPROVING</pickEarlyType>-->
+    <!--</forager>-->
+  <!--</localSearch>-->
+
+  <!-- To super scale out, replace <constructionHeuristic> and <localSearch> with this configuration: -->
+  <!--<customPhase>-->
+    <!--<customPhaseCommandClass>org.optaplanner.examples.nqueens.optional.solver.solution.CheatingNQueensPhaseCommand</customPhaseCommandClass>-->
+  <!--</customPhase>-->
+</solver>
+
